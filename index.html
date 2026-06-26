@@ -252,7 +252,7 @@
 
   .metrics-row {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 8px;
     margin-bottom: 14px;
   }
@@ -266,6 +266,7 @@
 
   .metric .m-val { font-size: 18px; font-weight: 700; color: var(--text); }
   .metric .m-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+  .metric .m-val.orange { color: var(--orange); }
 
   /* BANNER RESERVA */
   .reserva-banner {
@@ -330,7 +331,7 @@
     opacity: 0.8;
   }
 
-  /* ALERTA USO RESERVA EN RESULTADO */
+  /* ALERTA USO RESERVA */
   .reserva-alerta {
     background: var(--orange-bg);
     border: 1px solid rgba(249,115,22,0.3);
@@ -345,7 +346,6 @@
   }
 
   .reserva-alerta .ra-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-
   .reserva-alerta .ra-text strong { display: block; font-size: 13px; margin-bottom: 2px; }
   .reserva-alerta .ra-text span { color: var(--muted); }
 
@@ -490,12 +490,16 @@
 
       <div class="metrics-row">
         <div class="metric">
-          <div class="m-val" id="mActual">—</div>
-          <div class="m-lbl">Litros en estanque</div>
+          <div class="m-val" id="mMedibles">—</div>
+          <div class="m-lbl">Litros medibles (CAN)</div>
         </div>
         <div class="metric">
-          <div class="m-val" id="mNeeded">—</div>
-          <div class="m-lbl">Litros requeridos</div>
+          <div class="m-val orange" id="mReserva">—</div>
+          <div class="m-lbl">Reserva física</div>
+        </div>
+        <div class="metric">
+          <div class="m-val" id="mTotal">—</div>
+          <div class="m-lbl">Total físico en estanque</div>
         </div>
       </div>
 
@@ -573,13 +577,14 @@ function renderFleet() {
   const g = document.getElementById('fleetGrid');
   g.innerHTML = '';
   FLEET.forEach((v, i) => {
-    const reserva = Math.round(v.cap * 0.10);
+    const reserva     = Math.round(v.cap * 0.10);
+    const capMedible  = v.cap - reserva;
     const b = document.createElement('button');
     b.className = 'fleet-btn' + (selV === i ? ' selected' : '');
     b.innerHTML =
       '<div class="fb-marca">' + v.marca + '</div>' +
       '<div class="fb-patente">' + v.patente + '</div>' +
-      '<div class="fb-info">' + v.cap + ' L &nbsp;·&nbsp; ' + v.rend + ' km/L &nbsp;·&nbsp; res. ' + reserva + ' L</div>';
+      '<div class="fb-info">' + capMedible + ' L medibles &nbsp;·&nbsp; res. ' + reserva + ' L &nbsp;·&nbsp; ' + v.rend + ' km/L</div>';
     b.onclick = () => { selV = i; renderFleet(); checkPanel(); };
     g.appendChild(b);
   });
@@ -613,12 +618,12 @@ function renderDests() {
 
 /* ===================== AGREGAR DESTINO ===================== */
 function addDest() {
-  const n = document.getElementById('dname').value.trim();
+  const n  = document.getElementById('dname').value.trim();
   const km = parseInt(document.getElementById('dkm').value);
   if (!n || !km || km < 1) return;
   DESTS.push({name: n, km});
   document.getElementById('dname').value = '';
-  document.getElementById('dkm').value = '';
+  document.getElementById('dkm').value   = '';
   renderDests();
 }
 
@@ -644,30 +649,33 @@ function calcResult() {
   const pct = parseInt(document.getElementById('fuelRange').value);
   const mgn = parseInt(document.getElementById('marginSel').value) / 100;
 
-  // Reserva técnica = 10% capacidad (según fabricante)
-  const reserva   = Math.round(v.cap * 0.10);
-  const kmReserva = Math.round(reserva * v.rend);
+  // Reserva técnica = 10% capacidad total (según fabricante)
+  const reserva    = Math.round(v.cap * 0.10);
+  const kmReserva  = Math.round(reserva * v.rend);
 
-  // Litros físicos en estanque (dato GPS/CAN)
-  const litActual = Math.round((pct / 100) * v.cap);
+  // Capacidad medible por el CAN = 90% del estanque
+  const capMedible = v.cap - reserva;
 
-  // Litros sin reserva (solo informativo)
-  const litSinReserva = Math.max(0, litActual - reserva);
+  // Litros que indica el CAN (sobre la parte medible)
+  const litMedibles = Math.round((pct / 100) * capMedible);
 
-  // Cálculo del viaje usando TODOS los litros del estanque
+  // Total físico real en el estanque = medibles + reserva (siempre presente)
+  const litTotal = litMedibles + reserva;
+
+  // Cálculo del viaje usando el total físico real
   const litViaje     = Math.round(d.km / v.rend);
   const litRequerido = Math.round(litViaje * (1 + mgn));
-  const litCargar    = Math.max(0, litRequerido - litActual);
+  const litCargar    = Math.max(0, litRequerido - litTotal);
 
-  // ¿El viaje requiere usar la reserva?
-  const usaReserva = litActual >= litRequerido && litSinReserva < litRequerido;
-  // Cuántos litros de reserva se consumirán
-  const litReservaUsada = usaReserva ? Math.max(0, litRequerido - litSinReserva) : 0;
-  const kmEnReserva = Math.round(litReservaUsada * v.rend);
+  // ¿El viaje requiere usar parte de la reserva?
+  const usaReserva       = litTotal >= litRequerido && litMedibles < litRequerido;
+  const litReservaUsada  = usaReserva ? Math.max(0, litRequerido - litMedibles) : 0;
+  const kmEnReserva      = Math.round(litReservaUsada * v.rend);
 
-  // Actualizar métricas
-  document.getElementById('mActual').textContent = litActual + ' L';
-  document.getElementById('mNeeded').textContent = litRequerido + ' L';
+  // Actualizar métricas superiores
+  document.getElementById('mMedibles').textContent = litMedibles + ' L';
+  document.getElementById('mReserva').textContent  = reserva + ' L';
+  document.getElementById('mTotal').textContent    = litTotal + ' L';
 
   // Banner reserva
   document.getElementById('rbLts').textContent  = reserva + ' L';
@@ -696,8 +704,8 @@ function calcResult() {
     msg = 'El equipo tiene combustible suficiente para el viaje completo con margen de seguridad.';
   } else if (litCargar === 0 && usaReserva) {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⚠ Sale con uso de reserva';
-    msg = 'El equipo puede completar el viaje, pero utilizará parte de la reserva técnica. El tablero indicará falta de combustible durante aproximadamente ' + kmEnReserva + ' km.';
-  } else if (litCargar > 0 && litActual > 0) {
+    msg = 'El equipo puede completar el viaje pero utilizará parte de la reserva técnica. El tablero indicará falta de combustible durante aproximadamente ' + kmEnReserva + ' km.';
+  } else if (litCargar > 0 && pct > 0) {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⛽ Carga necesaria';
     msg = 'Se requiere carga para completar el viaje con margen del ' + (mgn * 100).toFixed(0) + '%.';
   } else {
@@ -705,7 +713,6 @@ function calcResult() {
     msg = 'Combustible insuficiente. Carga obligatoria antes de salir.';
   }
 
-  // Alerta de uso de reserva (se muestra si el viaje consume reserva)
   const alertaReserva = usaReserva
     ? '<div class="reserva-alerta">' +
         '<div class="ra-icon">🔶</div>' +
@@ -731,9 +738,9 @@ function calcResult() {
         '<div class="rg-item"><div class="rg-lbl">Destino</div><div class="rg-val">' + d.name + '</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Distancia total</div><div class="rg-val">' + d.km + ' km</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Consumo estimado</div><div class="rg-val">' + litViaje + ' L</div></div>' +
-        '<div class="rg-item"><div class="rg-lbl">En estanque (' + pct + '%)</div><div class="rg-val">' + litActual + ' L</div></div>' +
+        '<div class="rg-item"><div class="rg-lbl">Litros medibles (' + pct + '%)</div><div class="rg-val">' + litMedibles + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Reserva técnica (10%)</div><div class="rg-val orange">' + reserva + ' L — ' + kmReserva + ' km</div></div>' +
-        '<div class="rg-item"><div class="rg-lbl">Sin considerar reserva</div><div class="rg-val">' + litSinReserva + ' L</div></div>' +
+        '<div class="rg-item"><div class="rg-lbl">Total físico en estanque</div><div class="rg-val">' + litTotal + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Mínimo requerido</div><div class="rg-val">' + litRequerido + ' L</div></div>' +
       '</div>' +
     '</div>';
