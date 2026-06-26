@@ -25,7 +25,7 @@
     --red: #ef4444;
     --red-bg: rgba(239,68,68,0.12);
     --orange: #f97316;
-    --orange-bg: rgba(249,115,22,0.12);
+    --orange-bg: rgba(249,115,22,0.10);
     --radius: 12px;
     --radius-sm: 8px;
   }
@@ -267,50 +267,67 @@
   .metric .m-val { font-size: 18px; font-weight: 700; color: var(--text); }
   .metric .m-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; line-height: 1.3; }
 
-  /* Reserva destacada */
+  /* BANNER RESERVA */
   .reserva-banner {
+    background: var(--orange-bg);
+    border: 1px solid rgba(249,115,22,0.25);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+
+  .reserva-banner .rb-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: var(--orange-bg);
-    border: 1px solid rgba(249,115,22,0.3);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    margin-bottom: 14px;
-    font-size: 12px;
-    color: var(--muted);
+    gap: 6px;
+    margin-bottom: 10px;
   }
 
-  .reserva-banner .rb-icon { font-size: 18px; flex-shrink: 0; }
-
-  .reserva-banner .rb-main {
-    flex: 1;
+  .reserva-banner .rb-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--orange);
+    text-transform: uppercase;
   }
 
-  .reserva-banner .rb-lts {
-    font-size: 15px;
+  .reserva-banner .rb-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .rb-stat {
+    background: rgba(0,0,0,0.2);
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .rb-stat .rs-val {
+    font-size: 16px;
     font-weight: 700;
     color: var(--orange);
+    line-height: 1.1;
   }
 
-  .reserva-banner .rb-label {
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .reserva-banner .rb-disp {
-    text-align: right;
-  }
-
-  .reserva-banner .rb-disp-val {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--text);
-  }
-
-  .reserva-banner .rb-disp-lbl {
+  .rb-stat .rs-lbl {
     font-size: 10px;
     color: var(--muted);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+
+  .rb-stat.highlight .rs-val { color: var(--text); }
+
+  .rb-warning {
+    font-size: 10px;
+    color: var(--orange);
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0.8;
   }
 
   .margin-row {
@@ -369,9 +386,9 @@
     margin-bottom: 14px;
   }
 
-  .badge-green { background: rgba(34,197,94,0.15);  color: var(--green); }
-  .badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); }
-  .badge-red   { background: rgba(239,68,68,0.15);  color: var(--red); }
+  .badge-green  { background: rgba(34,197,94,0.15);  color: var(--green); }
+  .badge-amber  { background: rgba(245,158,11,0.15); color: var(--amber); }
+  .badge-red    { background: rgba(239,68,68,0.15);  color: var(--red); }
 
   .result-grid {
     display: grid;
@@ -383,7 +400,6 @@
 
   .rg-item .rg-lbl { font-size: 11px; color: var(--muted); }
   .rg-item .rg-val { font-size: 15px; font-weight: 600; color: var(--text); }
-
   .rg-item .rg-val.orange { color: var(--orange); }
 
   .tank-detail {
@@ -447,36 +463,49 @@
 
     <div class="fuel-card">
       <div class="fuel-slider-label">
-        <span>Nivel en estanque</span>
+        <span>Nivel en estanque (GPS/CAN)</span>
         <span class="fuel-pct-big" id="pctBig">50%</span>
       </div>
       <input type="range" id="fuelRange" min="0" max="100" value="50" step="1"
              oninput="onSlider(this.value)" />
+
       <div class="metrics-row">
         <div class="metric">
           <div class="m-val" id="mActual">—</div>
           <div class="m-lbl">Litros en estanque</div>
         </div>
         <div class="metric">
-          <div class="m-val" id="mNeeded">—</div>
-          <div class="m-lbl">Litros requeridos</div>
+          <div class="m-val" id="mDisp">—</div>
+          <div class="m-lbl">Disponibles para viaje</div>
         </div>
         <div class="metric">
-          <div class="m-val" id="mAuto">—</div>
-          <div class="m-lbl">Km disponibles</div>
+          <div class="m-val" id="mNeeded">—</div>
+          <div class="m-lbl">Litros requeridos</div>
         </div>
       </div>
 
       <!-- BANNER RESERVA -->
-      <div class="reserva-banner" id="reservaBanner">
-        <div class="rb-icon">⛽</div>
-        <div class="rb-main">
-          <div class="rb-lts" id="rbLts">— L</div>
-          <div class="rb-label">Reserva técnica (no disponible)</div>
+      <div class="reserva-banner">
+        <div class="rb-header">
+          <span>⚠️</span>
+          <span class="rb-title">Reserva técnica del equipo (10% capacidad)</span>
         </div>
-        <div class="rb-disp">
-          <div class="rb-disp-val" id="rbDisp">— L</div>
-          <div class="rb-disp-lbl">disponibles para viaje</div>
+        <div class="rb-body">
+          <div class="rb-stat">
+            <div class="rs-val" id="rbLts">—</div>
+            <div class="rs-lbl">Litros de reserva</div>
+          </div>
+          <div class="rb-stat highlight">
+            <div class="rs-val" id="rbKm">—</div>
+            <div class="rs-lbl">Km posibles con reserva</div>
+          </div>
+          <div class="rb-stat">
+            <div class="rs-val" id="rbRend">—</div>
+            <div class="rs-lbl">Rendimiento equipo</div>
+          </div>
+        </div>
+        <div class="rb-warning">
+          ⚠ Durante estos km el tablero indicará falta de combustible
         </div>
       </div>
 
@@ -501,18 +530,18 @@
 <script>
 /* ===================== DATOS ===================== */
 const FLEET = [
-  {marca:'DAF',           patente:'RTRJ-40', cap:580, est1:580, est2:0,   rend:2.9, reserva:100},
-  {marca:'DAF',           patente:'RVFF-14', cap:580, est1:580, est2:0,   rend:2.9, reserva:100},
-  {marca:'DAF',           patente:'RVFF-13', cap:580, est1:580, est2:0,   rend:2.9, reserva:100},
-  {marca:'DAF',           patente:'LRVV-86', cap:580, est1:580, est2:0,   rend:2.9, reserva:100},
-  {marca:'DAF',           patente:'LRVV-85', cap:580, est1:580, est2:0,   rend:2.9, reserva:100},
-  {marca:'FREIGHTLINER',  patente:'RJBV-34', cap:700, est1:0,   est2:0,   rend:3.0, reserva:120},
-  {marca:'FREIGHTLINER',  patente:'RJBV-35', cap:700, est1:0,   est2:0,   rend:3.0, reserva:120},
-  {marca:'MERCEDES-BENZ', patente:'SYPL-10', cap:660, est1:290, est2:370, rend:3.0, reserva:120},
-  {marca:'MERCEDES-BENZ', patente:'RKGC-82', cap:660, est1:290, est2:370, rend:3.0, reserva:120},
-  {marca:'MERCEDES-BENZ', patente:'SSHY-46', cap:660, est1:290, est2:370, rend:3.0, reserva:120},
-  {marca:'MERCEDES-BENZ', patente:'SPSH-74', cap:660, est1:290, est2:370, rend:3.0, reserva:120},
-  {marca:'MERCEDES-BENZ', patente:'SHLL-37', cap:660, est1:290, est2:370, rend:3.0, reserva:120},
+  {marca:'DAF',           patente:'RTRJ-40', cap:580, est1:580, est2:0,   rend:2.9},
+  {marca:'DAF',           patente:'RVFF-14', cap:580, est1:580, est2:0,   rend:2.9},
+  {marca:'DAF',           patente:'RVFF-13', cap:580, est1:580, est2:0,   rend:2.9},
+  {marca:'DAF',           patente:'LRVV-86', cap:580, est1:580, est2:0,   rend:2.9},
+  {marca:'DAF',           patente:'LRVV-85', cap:580, est1:580, est2:0,   rend:2.9},
+  {marca:'FREIGHTLINER',  patente:'RJBV-34', cap:700, est1:0,   est2:0,   rend:3.0},
+  {marca:'FREIGHTLINER',  patente:'RJBV-35', cap:700, est1:0,   est2:0,   rend:3.0},
+  {marca:'MERCEDES-BENZ', patente:'SYPL-10', cap:660, est1:290, est2:370, rend:3.0},
+  {marca:'MERCEDES-BENZ', patente:'RKGC-82', cap:660, est1:290, est2:370, rend:3.0},
+  {marca:'MERCEDES-BENZ', patente:'SSHY-46', cap:660, est1:290, est2:370, rend:3.0},
+  {marca:'MERCEDES-BENZ', patente:'SPSH-74', cap:660, est1:290, est2:370, rend:3.0},
+  {marca:'MERCEDES-BENZ', patente:'SHLL-37', cap:660, est1:290, est2:370, rend:3.0},
 ];
 
 let DESTS = [
@@ -529,12 +558,13 @@ function renderFleet() {
   const g = document.getElementById('fleetGrid');
   g.innerHTML = '';
   FLEET.forEach((v, i) => {
+    const reserva = Math.round(v.cap * 0.10);
     const b = document.createElement('button');
     b.className = 'fleet-btn' + (selV === i ? ' selected' : '');
     b.innerHTML =
       '<div class="fb-marca">' + v.marca + '</div>' +
       '<div class="fb-patente">' + v.patente + '</div>' +
-      '<div class="fb-info">' + v.cap + ' L &nbsp;·&nbsp; ' + v.rend + ' km/L</div>';
+      '<div class="fb-info">' + v.cap + ' L &nbsp;·&nbsp; ' + v.rend + ' km/L &nbsp;·&nbsp; res. ' + reserva + ' L</div>';
     b.onclick = () => { selV = i; renderFleet(); checkPanel(); };
     g.appendChild(b);
   });
@@ -599,33 +629,32 @@ function calcResult() {
   const pct = parseInt(document.getElementById('fuelRange').value);
   const mgn = parseInt(document.getElementById('marginSel').value) / 100;
 
-  // Litros físicos en el estanque (sobre capacidad total)
+  // Reserva técnica = 10% capacidad (según fabricante)
+  const reserva = Math.round(v.cap * 0.10);
+
+  // Km posibles solo con la reserva
+  const kmReserva = Math.round(reserva * v.rend);
+
+  // Litros físicos en estanque (dato GPS/CAN)
   const litActual = Math.round((pct / 100) * v.cap);
 
-  // Reserva técnica excluida del uso operacional
-  const reserva = v.reserva;
-
-  // Litros realmente disponibles para el viaje
+  // Litros disponibles para el viaje (excluye reserva)
   const litDisp = Math.max(0, litActual - reserva);
 
-  // Consumo del viaje y mínimo requerido (sobre litros disponibles)
+  // Cálculo del viaje
   const litViaje     = Math.round(d.km / v.rend);
   const litRequerido = Math.round(litViaje * (1 + mgn));
+  const litCargar    = Math.max(0, litRequerido - litDisp);
 
-  // Cuánto cargar (comparando disponibles vs requeridos)
-  const litCargar = Math.max(0, litRequerido - litDisp);
-
-  // Km posibles con litros disponibles (sin reserva)
-  const kmDisp = Math.round(litDisp * v.rend);
-
-  // Actualizar métricas superiores
+  // Actualizar métricas
   document.getElementById('mActual').textContent = litActual + ' L';
+  document.getElementById('mDisp').textContent   = litDisp + ' L';
   document.getElementById('mNeeded').textContent = litRequerido + ' L';
-  document.getElementById('mAuto').textContent   = kmDisp + ' km';
 
-  // Banner de reserva
+  // Banner reserva
   document.getElementById('rbLts').textContent  = reserva + ' L';
-  document.getElementById('rbDisp').textContent = litDisp + ' L';
+  document.getElementById('rbKm').textContent   = kmReserva + ' km';
+  document.getElementById('rbRend').textContent = v.rend + ' km/L';
 
   /* detalle tanques */
   const td = document.getElementById('tankDetail');
@@ -648,11 +677,11 @@ function calcResult() {
     cls = 'green'; badgeCls = 'badge-green'; badgeTxt = '✓ Listo para salir';
     msg = 'El equipo tiene combustible disponible suficiente para el viaje completo con margen de seguridad.';
   } else if (litDisp < litViaje * 0.5) {
-    cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Nivel crítico — verificar antes de salir';
-    msg = 'Combustible disponible insuficiente. Se debe cargar antes de salir.';
+    cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Nivel crítico — cargar antes de salir';
+    msg = 'Combustible disponible insuficiente. Carga obligatoria antes de salir.';
   } else {
-    cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⛽ Carga parcial recomendada';
-    msg = 'Carga necesaria para completar el viaje con margen del ' + (mgn * 100).toFixed(0) + '%.';
+    cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⛽ Carga necesaria';
+    msg = 'Se requiere carga para completar el viaje con margen del ' + (mgn * 100).toFixed(0) + '%.';
   }
 
   rb.innerHTML =
@@ -670,7 +699,7 @@ function calcResult() {
         '<div class="rg-item"><div class="rg-lbl">Distancia total</div><div class="rg-val">' + d.km + ' km</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Consumo estimado</div><div class="rg-val">' + litViaje + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">En estanque (' + pct + '%)</div><div class="rg-val">' + litActual + ' L</div></div>' +
-        '<div class="rg-item"><div class="rg-lbl">Reserva técnica</div><div class="rg-val orange">' + reserva + ' L</div></div>' +
+        '<div class="rg-item"><div class="rg-lbl">Reserva técnica (10%)</div><div class="rg-val orange">' + reserva + ' L — ' + kmReserva + ' km</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Disponibles para viaje</div><div class="rg-val">' + litDisp + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Mínimo requerido</div><div class="rg-val">' + litRequerido + ' L</div></div>' +
       '</div>' +
