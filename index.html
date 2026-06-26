@@ -252,7 +252,7 @@
 
   .metrics-row {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(2,1fr);
     gap: 8px;
     margin-bottom: 14px;
   }
@@ -329,6 +329,25 @@
     gap: 4px;
     opacity: 0.8;
   }
+
+  /* ALERTA USO RESERVA EN RESULTADO */
+  .reserva-alerta {
+    background: var(--orange-bg);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: var(--orange);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .reserva-alerta .ra-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+  .reserva-alerta .ra-text strong { display: block; font-size: 13px; margin-bottom: 2px; }
+  .reserva-alerta .ra-text span { color: var(--muted); }
 
   .margin-row {
     display: flex;
@@ -473,10 +492,6 @@
         <div class="metric">
           <div class="m-val" id="mActual">—</div>
           <div class="m-lbl">Litros en estanque</div>
-        </div>
-        <div class="metric">
-          <div class="m-val" id="mDisp">—</div>
-          <div class="m-lbl">Disponibles para viaje</div>
         </div>
         <div class="metric">
           <div class="m-val" id="mNeeded">—</div>
@@ -630,25 +645,28 @@ function calcResult() {
   const mgn = parseInt(document.getElementById('marginSel').value) / 100;
 
   // Reserva técnica = 10% capacidad (según fabricante)
-  const reserva = Math.round(v.cap * 0.10);
-
-  // Km posibles solo con la reserva
+  const reserva   = Math.round(v.cap * 0.10);
   const kmReserva = Math.round(reserva * v.rend);
 
   // Litros físicos en estanque (dato GPS/CAN)
   const litActual = Math.round((pct / 100) * v.cap);
 
-  // Litros disponibles para el viaje (excluye reserva)
-  const litDisp = Math.max(0, litActual - reserva);
+  // Litros sin reserva (solo informativo)
+  const litSinReserva = Math.max(0, litActual - reserva);
 
-  // Cálculo del viaje
+  // Cálculo del viaje usando TODOS los litros del estanque
   const litViaje     = Math.round(d.km / v.rend);
   const litRequerido = Math.round(litViaje * (1 + mgn));
-  const litCargar    = Math.max(0, litRequerido - litDisp);
+  const litCargar    = Math.max(0, litRequerido - litActual);
+
+  // ¿El viaje requiere usar la reserva?
+  const usaReserva = litActual >= litRequerido && litSinReserva < litRequerido;
+  // Cuántos litros de reserva se consumirán
+  const litReservaUsada = usaReserva ? Math.max(0, litRequerido - litSinReserva) : 0;
+  const kmEnReserva = Math.round(litReservaUsada * v.rend);
 
   // Actualizar métricas
   document.getElementById('mActual').textContent = litActual + ' L';
-  document.getElementById('mDisp').textContent   = litDisp + ' L';
   document.getElementById('mNeeded').textContent = litRequerido + ' L';
 
   // Banner reserva
@@ -673,16 +691,30 @@ function calcResult() {
   const rb = document.getElementById('resultBox');
   let cls, badgeCls, badgeTxt, msg;
 
-  if (litCargar === 0) {
+  if (litCargar === 0 && !usaReserva) {
     cls = 'green'; badgeCls = 'badge-green'; badgeTxt = '✓ Listo para salir';
-    msg = 'El equipo tiene combustible disponible suficiente para el viaje completo con margen de seguridad.';
-  } else if (litDisp < litViaje * 0.5) {
-    cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Nivel crítico — cargar antes de salir';
-    msg = 'Combustible disponible insuficiente. Carga obligatoria antes de salir.';
-  } else {
+    msg = 'El equipo tiene combustible suficiente para el viaje completo con margen de seguridad.';
+  } else if (litCargar === 0 && usaReserva) {
+    cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⚠ Sale con uso de reserva';
+    msg = 'El equipo puede completar el viaje, pero utilizará parte de la reserva técnica. El tablero indicará falta de combustible durante aproximadamente ' + kmEnReserva + ' km.';
+  } else if (litCargar > 0 && litActual > 0) {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⛽ Carga necesaria';
     msg = 'Se requiere carga para completar el viaje con margen del ' + (mgn * 100).toFixed(0) + '%.';
+  } else {
+    cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Nivel crítico — cargar antes de salir';
+    msg = 'Combustible insuficiente. Carga obligatoria antes de salir.';
   }
+
+  // Alerta de uso de reserva (se muestra si el viaje consume reserva)
+  const alertaReserva = usaReserva
+    ? '<div class="reserva-alerta">' +
+        '<div class="ra-icon">🔶</div>' +
+        '<div class="ra-text">' +
+          '<strong>Este viaje utiliza ' + litReservaUsada + ' L de reserva técnica</strong>' +
+          '<span>El conductor circulará ~' + kmEnReserva + ' km con luz de advertencia encendida</span>' +
+        '</div>' +
+      '</div>'
+    : '';
 
   rb.innerHTML =
     '<div class="result ' + cls + '">' +
@@ -693,6 +725,7 @@ function calcResult() {
       '</div>' +
       '<div class="result-msg">' + msg + '</div>' +
       '<div class="result-badge ' + badgeCls + '">' + badgeTxt + '</div>' +
+      alertaReserva +
       '<div class="result-grid">' +
         '<div class="rg-item"><div class="rg-lbl">Equipo</div><div class="rg-val">' + v.patente + '</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Destino</div><div class="rg-val">' + d.name + '</div></div>' +
@@ -700,7 +733,7 @@ function calcResult() {
         '<div class="rg-item"><div class="rg-lbl">Consumo estimado</div><div class="rg-val">' + litViaje + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">En estanque (' + pct + '%)</div><div class="rg-val">' + litActual + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Reserva técnica (10%)</div><div class="rg-val orange">' + reserva + ' L — ' + kmReserva + ' km</div></div>' +
-        '<div class="rg-item"><div class="rg-lbl">Disponibles para viaje</div><div class="rg-val">' + litDisp + ' L</div></div>' +
+        '<div class="rg-item"><div class="rg-lbl">Sin considerar reserva</div><div class="rg-val">' + litSinReserva + ' L</div></div>' +
         '<div class="rg-item"><div class="rg-lbl">Mínimo requerido</div><div class="rg-val">' + litRequerido + ' L</div></div>' +
       '</div>' +
     '</div>';
