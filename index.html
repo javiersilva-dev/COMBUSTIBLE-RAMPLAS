@@ -75,57 +75,32 @@
   .container { max-width: 480px; margin: 0 auto; padding: 16px; }
 
   .step-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 6px;
   }
 
   .step-label .num {
-    width: 20px; height: 20px;
-    background: var(--accent);
-    border-radius: 50%;
+    width: 20px; height: 20px; background: var(--accent); border-radius: 50%;
     display: inline-flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: white;
-    flex-shrink: 0;
+    font-size: 11px; font-weight: 700; color: white; flex-shrink: 0;
   }
 
   .section { margin-bottom: 20px; }
 
-  .fleet-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
+  .fleet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
   .fleet-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px;
-    text-align: left;
-    cursor: pointer;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 12px;
+    text-align: left; cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
-    -webkit-appearance: none;
-    width: 100%;
+    -webkit-appearance: none; width: 100%;
   }
-
   .fleet-btn:active { transform: scale(0.97); }
   .fleet-btn.selected { border-color: var(--accent); background: var(--accent-bg); }
-
-  .fleet-btn .fb-marca {
-    font-size: 10px; font-weight: 600;
-    color: var(--accent); letter-spacing: 0.04em; margin-bottom: 2px;
-  }
-  .fleet-btn .fb-patente {
-    font-size: 15px; font-weight: 700;
-    color: var(--text); letter-spacing: 0.03em;
-  }
+  .fleet-btn .fb-marca { font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 2px; }
+  .fleet-btn .fb-patente { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: 0.03em; }
   .fleet-btn .fb-info { font-size: 11px; color: var(--muted); margin-top: 3px; }
 
   .dest-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
@@ -138,15 +113,11 @@
     transition: all 0.15s; -webkit-appearance: none;
   }
   .dest-chip:active { transform: scale(0.96); }
-  .dest-chip.active {
-    border-color: var(--accent); background: var(--accent-bg);
-    color: var(--text); font-weight: 500;
-  }
+  .dest-chip.active { border-color: var(--accent); background: var(--accent-bg); color: var(--text); font-weight: 500; }
   .dest-chip .chip-km { font-size: 11px; opacity: 0.65; }
   .dest-chip .chip-del { font-size: 14px; opacity: 0.5; margin-left: 2px; line-height: 1; }
 
   .add-dest-form { display: flex; gap: 8px; flex-wrap: wrap; }
-
   .add-dest-form input {
     background: var(--surface); border: 1px solid var(--border2);
     border-radius: var(--radius-sm); padding: 9px 12px;
@@ -167,119 +138,99 @@
   #panelCombustible { display: none; }
 
   .fuel-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin-bottom: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px; margin-bottom: 16px;
   }
 
-  .slider-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 10px;
-  }
+  .slider-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   .slider-header .sh-label { font-size: 13px; color: var(--muted); }
   .slider-header .sh-pct   { font-size: 28px; font-weight: 700; color: var(--text); }
 
   input[type=range] {
-    width: 100%; height: 6px;
-    -webkit-appearance: none;
-    background: var(--surface2);
-    border-radius: 3px; outline: none; cursor: pointer;
-    margin-bottom: 16px;
+    width: 100%; height: 6px; -webkit-appearance: none;
+    background: var(--surface2); border-radius: 3px; outline: none;
+    cursor: pointer; margin-bottom: 16px;
   }
   input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 24px; height: 24px; border-radius: 50%;
-    background: var(--accent);
-    border: 3px solid var(--bg);
-    box-shadow: 0 0 0 1px var(--accent);
-    cursor: pointer;
+    -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+    box-shadow: 0 0 0 1px var(--accent); cursor: pointer;
   }
 
   .fuel-balance {
-    background: var(--surface2);
-    border-radius: var(--radius-sm);
-    padding: 14px;
-    margin-bottom: 14px;
+    background: var(--surface2); border-radius: var(--radius-sm);
+    padding: 14px; margin-bottom: 14px;
   }
-
   .fb-title {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.07em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 12px;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.07em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 12px;
   }
-
-  .fb-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 6px 0;
-  }
-
+  .fb-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; }
   .fb-row + .fb-row { border-top: 1px solid var(--border); }
-
-  .fb-row.total {
-    border-top: 2px solid var(--border2);
-    margin-top: 4px;
-    padding-top: 10px;
-  }
-
-  .fb-row .fb-name {
-    font-size: 13px; color: var(--muted);
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .fb-row .fb-name .dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
-  }
-
+  .fb-row.total { border-top: 2px solid var(--border2); margin-top: 4px; padding-top: 10px; }
+  .fb-row .fb-name { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .fb-row .fb-name .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
   .dot-blue   { background: var(--accent); }
   .dot-orange { background: var(--orange); }
   .dot-white  { background: var(--text); }
-
   .fb-row .fb-val { font-size: 15px; font-weight: 700; color: var(--text); }
   .fb-row .fb-val.orange { color: var(--orange); }
   .fb-row .fb-val.accent { color: var(--accent); }
   .fb-row .fb-val.big    { font-size: 20px; }
 
   .reserva-banner {
-    background: var(--orange-bg);
-    border: 1px solid rgba(249,115,22,0.25);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    background: var(--orange-bg); border: 1px solid rgba(249,115,22,0.25);
+    border-radius: var(--radius-sm); padding: 10px 14px;
+    margin-bottom: 14px; display: flex; align-items: center; gap: 12px;
   }
-
   .reserva-banner .rb-icon { font-size: 20px; flex-shrink: 0; }
   .reserva-banner .rb-info { flex: 1; }
-  .reserva-banner .rb-info .ri-title {
-    font-size: 11px; font-weight: 600;
-    color: var(--orange); text-transform: uppercase;
-    letter-spacing: 0.05em; margin-bottom: 2px;
-  }
+  .reserva-banner .rb-info .ri-title { font-size: 11px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
   .reserva-banner .rb-info .ri-sub { font-size: 11px; color: var(--muted); }
   .reserva-banner .rb-km { text-align: right; }
   .reserva-banner .rb-km .rk-val { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; }
   .reserva-banner .rb-km .rk-lbl { font-size: 10px; color: var(--muted); }
 
-  .margin-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .margin-row label { font-size: 13px; color: var(--muted); }
+  /* SELECTOR MARGEN */
+  .margin-row { margin-bottom: 14px; }
+  .margin-row label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; }
 
-  select {
-    background: var(--surface2); border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); color: var(--text);
-    font-size: 13px; padding: 7px 10px;
-    -webkit-appearance: none; outline: none; cursor: pointer;
+  .margin-options { display: flex; flex-direction: column; gap: 6px; }
+
+  .margin-opt {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 12px;
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+    -webkit-appearance: none; width: 100%; text-align: left;
   }
+  .margin-opt:active { transform: scale(0.99); }
+  .margin-opt.selected { border-color: var(--accent); background: var(--accent-bg); }
+  .margin-opt.selected-orange { border-color: var(--orange); background: var(--orange-bg); }
+
+  .margin-opt .mo-radio {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid var(--border2); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .margin-opt.selected .mo-radio { border-color: var(--accent); background: var(--accent); }
+  .margin-opt.selected-orange .mo-radio { border-color: var(--orange); background: var(--orange); }
+  .mo-radio .mo-dot { width: 6px; height: 6px; border-radius: 50%; background: white; display: none; }
+  .margin-opt.selected .mo-dot,
+  .margin-opt.selected-orange .mo-dot { display: block; }
+
+  .margin-opt .mo-text { flex: 1; }
+  .margin-opt .mo-label { font-size: 13px; font-weight: 600; color: var(--text); }
+  .margin-opt .mo-sub   { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .margin-opt.selected-orange .mo-label { color: var(--orange); }
+  .margin-opt.selected-orange .mo-sub   { color: var(--orange); opacity: 0.8; }
+
+  .margin-opt .mo-badge {
+    font-size: 10px; font-weight: 600; padding: 2px 8px;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .badge-blue   { background: var(--accent-bg); color: var(--accent); }
+  .badge-orange { background: var(--orange-bg); color: var(--orange); }
 
   .tank-detail {
     background: var(--surface2); border-radius: var(--radius-sm);
@@ -287,9 +238,7 @@
   }
   .tank-detail strong { color: var(--text); }
 
-  .result {
-    border-radius: var(--radius); padding: 16px; border-left: 4px solid transparent;
-  }
+  .result { border-radius: var(--radius); padding: 16px; border-left: 4px solid transparent; }
   .result.green  { background: var(--green-bg);  border-color: var(--green); }
   .result.amber  { background: var(--amber-bg);  border-color: var(--amber); }
   .result.red    { background: var(--red-bg);    border-color: var(--red); }
@@ -301,15 +250,13 @@
     display: inline-block; font-size: 12px; font-weight: 600;
     padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
   }
-  .badge-green { background: rgba(34,197,94,0.15);  color: var(--green); }
-  .badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); }
-  .badge-red   { background: rgba(239,68,68,0.15);  color: var(--red); }
+  .badge-green  { background: rgba(34,197,94,0.15);  color: var(--green); }
+  .badge-amber  { background: rgba(245,158,11,0.15); color: var(--amber); }
+  .badge-red    { background: rgba(239,68,68,0.15);  color: var(--red); }
 
   .reserva-alerta {
-    background: rgba(249,115,22,0.10);
-    border: 1px solid rgba(249,115,22,0.25);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px; margin-bottom: 14px;
+    background: rgba(249,115,22,0.10); border: 1px solid rgba(249,115,22,0.25);
+    border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 14px;
     display: flex; align-items: flex-start; gap: 8px; font-size: 12px;
   }
   .reserva-alerta .ra-icon { font-size: 16px; flex-shrink: 0; }
@@ -320,15 +267,11 @@
     display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;
   }
-
   .rs-item .rs-lbl { font-size: 10px; color: var(--muted); margin-bottom: 1px; }
   .rs-item .rs-val { font-size: 14px; font-weight: 600; color: var(--text); }
   .rs-item .rs-val.orange { color: var(--orange); }
 
-  footer {
-    text-align: center; font-size: 11px; color: var(--muted);
-    padding: 24px 16px 8px; opacity: 0.5;
-  }
+  footer { text-align: center; font-size: 11px; color: var(--muted); padding: 24px 16px 8px; opacity: 0.5; }
 </style>
 </head>
 <body>
@@ -403,13 +346,41 @@
         </div>
       </div>
 
+      <!-- SELECTOR DE MARGEN -->
       <div class="margin-row">
         <label>Margen de seguridad:</label>
-        <select id="marginSel" onchange="calcResult()">
-          <option value="5">5% — mínimo</option>
-          <option value="10" selected>10% — recomendado</option>
-          <option value="15">15% — precaución</option>
-        </select>
+        <div class="margin-options" id="marginOptions">
+          <button class="margin-opt" data-val="5" onclick="setMargin(this)">
+            <div class="mo-radio"><div class="mo-dot"></div></div>
+            <div class="mo-text">
+              <div class="mo-label">5% — mínimo</div>
+              <div class="mo-sub">Solo para trayectos cortos o cargas de emergencia</div>
+            </div>
+          </button>
+          <button class="margin-opt selected" data-val="10" onclick="setMargin(this)">
+            <div class="mo-radio"><div class="mo-dot"></div></div>
+            <div class="mo-text">
+              <div class="mo-label">10% — recomendado</div>
+              <div class="mo-sub">Margen estándar para operación normal</div>
+            </div>
+            <span class="mo-badge badge-blue">Estándar</span>
+          </button>
+          <button class="margin-opt" data-val="15" onclick="setMargin(this)">
+            <div class="mo-radio"><div class="mo-dot"></div></div>
+            <div class="mo-text">
+              <div class="mo-label">15% — precaución</div>
+              <div class="mo-sub">Rutas con condiciones adversas o tráfico</div>
+            </div>
+          </button>
+          <button class="margin-opt" data-val="reserva" onclick="setMargin(this)">
+            <div class="mo-radio"><div class="mo-dot"></div></div>
+            <div class="mo-text">
+              <div class="mo-label">Reserva intacta al llegar</div>
+              <div class="mo-sub" id="moSubReserva">La luz de reserva enciende al llegar a destino</div>
+            </div>
+            <span class="mo-badge badge-orange">⛽ Óptimo</span>
+          </button>
+        </div>
       </div>
 
       <div id="tankDetail" class="tank-detail" style="display:none;"></div>
@@ -428,7 +399,6 @@
    DAF           → 2.8 km/L  (antes 2.9)
    FREIGHTLINER  → 2.9 km/L  (antes 3.0) — Cascadia
    MERCEDES-BENZ → 2.8 km/L  (antes 3.0)
-   Actualizado tras incidente SPSH-74 en ruta a Puerto Angamos
 ================================================== */
 const FLEET = [
   {marca:'DAF',           patente:'RTRJ-40', cap:580, est1:580, est2:0,   rend:2.8},
@@ -451,13 +421,36 @@ let DESTS = [
   {name:'Puerto Padrones',   km:1050},
 ];
 
-let selV = null;
-let selD = null;
+let selV      = null;
+let selD      = null;
+let margenVal = '10'; // '5' | '10' | '15' | 'reserva'
 
+/* ===================== MARGEN ===================== */
+function setMargin(btn) {
+  document.querySelectorAll('.margin-opt').forEach(function(b) {
+    b.classList.remove('selected', 'selected-orange');
+  });
+  margenVal = btn.dataset.val;
+  if (margenVal === 'reserva') {
+    btn.classList.add('selected-orange');
+  } else {
+    btn.classList.add('selected');
+  }
+  calcResult();
+}
+
+function getMargenPct(reserva) {
+  if (margenVal === 'reserva') {
+    return reserva; // litros fijos, no porcentaje
+  }
+  return null;
+}
+
+/* ===================== RENDER FLOTA ===================== */
 function renderFleet() {
   const g = document.getElementById('fleetGrid');
   g.innerHTML = '';
-  FLEET.forEach((v, i) => {
+  FLEET.forEach(function(v, i) {
     const reserva    = Math.round(v.cap * 0.10);
     const capMedible = v.cap - reserva;
     const b = document.createElement('button');
@@ -466,22 +459,23 @@ function renderFleet() {
       '<div class="fb-marca">' + v.marca + '</div>' +
       '<div class="fb-patente">' + v.patente + '</div>' +
       '<div class="fb-info">' + capMedible + ' L CAN &nbsp;+&nbsp; ' + reserva + ' L res. &nbsp;·&nbsp; ' + v.rend + ' km/L</div>';
-    b.onclick = () => { selV = i; renderFleet(); checkPanel(); };
+    b.onclick = function() { selV = i; renderFleet(); checkPanel(); };
     g.appendChild(b);
   });
 }
 
+/* ===================== RENDER DESTINOS ===================== */
 function renderDests() {
   const c = document.getElementById('destChips');
   c.innerHTML = '';
-  DESTS.forEach((d, i) => {
+  DESTS.forEach(function(d, i) {
     const chip = document.createElement('button');
     chip.className = 'dest-chip' + (selD === i ? ' active' : '');
     chip.innerHTML =
       d.name +
       ' <span class="chip-km">' + d.km + ' km</span>' +
       (DESTS.length > 1 ? ' <span class="chip-del" data-i="' + i + '">✕</span>' : '');
-    chip.onclick = (e) => {
+    chip.onclick = function(e) {
       const del = e.target.closest('[data-i]');
       if (del) {
         const idx = parseInt(del.dataset.i);
@@ -496,34 +490,37 @@ function renderDests() {
   });
 }
 
+/* ===================== AGREGAR DESTINO ===================== */
 function addDest() {
   const n  = document.getElementById('dname').value.trim();
   const km = parseInt(document.getElementById('dkm').value);
   if (!n || !km || km < 1) return;
-  DESTS.push({name: n, km});
+  DESTS.push({name: n, km: km});
   document.getElementById('dname').value = '';
   document.getElementById('dkm').value   = '';
   renderDests();
 }
 
+/* ===================== PANEL ===================== */
 function checkPanel() {
   const show = selV !== null && selD !== null;
   document.getElementById('panelCombustible').style.display = show ? 'block' : 'none';
   if (show) calcResult();
 }
 
+/* ===================== SLIDER ===================== */
 function onSlider(v) {
   document.getElementById('pctBig').textContent = v + '%';
   calcResult();
 }
 
+/* ===================== CÁLCULO ===================== */
 function calcResult() {
   if (selV === null || selD === null) return;
 
   const v   = FLEET[selV];
   const d   = DESTS[selD];
   const pct = parseInt(document.getElementById('fuelRange').value);
-  const mgn = parseInt(document.getElementById('marginSel').value) / 100;
 
   const reserva    = Math.round(v.cap * 0.10);
   const capMedible = v.cap - reserva;
@@ -532,19 +529,38 @@ function calcResult() {
   const litMedibles = Math.round((pct / 100) * capMedible);
   const litTotal    = litMedibles + reserva;
 
-  const litViaje     = Math.round(d.km / v.rend);
-  const litRequerido = Math.round(litViaje * (1 + mgn));
-  const litCargar    = Math.max(0, litRequerido - litTotal);
+  const litViaje = Math.round(d.km / v.rend);
+
+  // Cálculo del mínimo requerido según opción de margen
+  let litRequerido;
+  let margenDesc;
+
+  if (margenVal === 'reserva') {
+    // Llegar con la reserva intacta = consumo puro + reserva completa
+    litRequerido = litViaje + reserva;
+    margenDesc   = 'reserva intacta al llegar (' + reserva + ' L)';
+    // Actualizar subtítulo dinámico
+    document.getElementById('moSubReserva').textContent =
+      'Llegar con ' + reserva + ' L · luz de reserva enciende al arribar · +' + kmReserva + ' km disponibles';
+  } else {
+    const mgn    = parseInt(margenVal) / 100;
+    litRequerido = Math.round(litViaje * (1 + mgn));
+    margenDesc   = 'margen ' + margenVal + '%';
+  }
+
+  const litCargar = Math.max(0, litRequerido - litTotal);
 
   const usaReserva      = litTotal >= litRequerido && litMedibles < litRequerido;
   const litReservaUsada = usaReserva ? Math.max(0, litRequerido - litMedibles) : 0;
   const kmEnReserva     = Math.round(litReservaUsada * v.rend);
 
+  // Actualizar balance
   document.getElementById('bMedibles').textContent = litMedibles + ' L';
   document.getElementById('bReserva').textContent  = reserva + ' L';
   document.getElementById('bTotal').textContent    = litTotal + ' L';
   document.getElementById('rbKm').textContent      = kmReserva + ' km';
 
+  // Detalle tanques
   const td = document.getElementById('tankDetail');
   if (v.est1 > 0 && v.est2 > 0) {
     td.style.display = 'block';
@@ -557,18 +573,21 @@ function calcResult() {
     td.innerHTML = 'Capacidad total: <strong>' + v.cap + ' L</strong> (distribución no especificada)';
   }
 
+  // Resultado
   const rb = document.getElementById('resultBox');
   let cls, badgeCls, badgeTxt, msg;
 
   if (litCargar === 0 && !usaReserva) {
     cls = 'green'; badgeCls = 'badge-green'; badgeTxt = '✓ Listo para salir';
-    msg = 'Combustible suficiente para el viaje completo con margen de seguridad.';
+    msg = margenVal === 'reserva'
+      ? 'El equipo llegará a destino con la reserva intacta. La luz de reserva encenderá al arribar.'
+      : 'Combustible suficiente para el viaje completo con margen de seguridad.';
   } else if (litCargar === 0 && usaReserva) {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⚠ Sale usando reserva';
     msg = 'Alcanza el destino pero usará ' + litReservaUsada + ' L de reserva. El tablero indicará falta de combustible por ~' + kmEnReserva + ' km.';
   } else if (litCargar > 0 && pct > 0) {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⛽ Carga necesaria';
-    msg = 'Faltan ' + litCargar + ' L para completar el viaje con margen del ' + (mgn * 100).toFixed(0) + '%.';
+    msg = 'Faltan ' + litCargar + ' L para completar el viaje con ' + margenDesc + '.';
   } else {
     cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Sin combustible — cargar antes de salir';
     msg = 'El estanque no registra nivel. Carga obligatoria.';
