@@ -227,6 +227,16 @@
         <span class="ct-lbl">Total a cargar</span>
         <span class="ct-val" id="convoyTotal">0 L</span>
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em;">📅 Fecha salida</div>
+          <input type="date" id="fechaSalida" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px 10px;font-size:13px;color:var(--text);-webkit-appearance:none;outline:none;" />
+        </div>
+        <div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em;">📅 Fecha retorno</div>
+          <input type="date" id="fechaRetorno" style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:8px 10px;font-size:13px;color:var(--text);-webkit-appearance:none;outline:none;" />
+        </div>
+      </div>
       <button class="btn-convoy-enviar" onclick="enviarConvoy()">📲 Enviar resumen convoy por WhatsApp</button>
       <button class="btn-convoy-limpiar" onclick="limpiarConvoy()">✕ Limpiar convoy</button>
     </div>
@@ -576,9 +586,25 @@ function generarTextoConvoy() {
   const totalCargar = convoy.reduce(function(s, c) { return s + c.litCargar; }, 0);
   const destinos    = [...new Set(convoy.map(function(c) { return c.destino; }))].join(' / ');
 
+  const elSalida  = document.getElementById('fechaSalida');
+  const elRetorno = document.getElementById('fechaRetorno');
+
+  function fmtFecha(val) {
+    if (!val) return null;
+    const p = val.split('-');
+    return p[2] + '/' + p[1] + '/' + p[0];
+  }
+
+  const fSalida  = fmtFecha(elSalida  ? elSalida.value  : '');
+  const fRetorno = fmtFecha(elRetorno ? elRetorno.value : '');
+
+  const lineaFechas = fSalida
+    ? ('📅 Salida: ' + fSalida + (fRetorno ? ' · Retorno: ' + fRetorno : ''))
+    : ('📅 ' + fecha + ' · ' + hora);
+
   let texto =
     '🚛 *INCOM — Convoy Ramplas*\n' +
-    '📅 ' + fecha + ' · ' + hora + '\n' +
+    lineaFechas + '\n' +
     '📍 ' + destinos + ' — ' + convoy[0].km + ' km\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n\n';
 
@@ -627,6 +653,17 @@ function mostrarToast() {
 
 renderFleet();
 renderDests();
+
+// Inicializar fechas con hoy y mañana
+(function() {
+  var hoy = new Date();
+  var man = new Date(); man.setDate(man.getDate() + 1);
+  function fmt(d) { return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+  var fs = document.getElementById('fechaSalida');
+  var fr = document.getElementById('fechaRetorno');
+  if (fs) fs.value = fmt(hoy);
+  if (fr) fr.value = fmt(man);
+})();
 </script>
 </body>
 </html>
