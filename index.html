@@ -579,7 +579,7 @@ function generarTextoConvoy() {
   let texto =
     '🚛 *INCOM — Convoy Ramplas*\n' +
     '📅 ' + fecha + ' · ' + hora + '\n' +
-    '📍 ' + destinos + '\n' +
+    '📍 ' + destinos + ' — ' + convoy[0].km + ' km\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n\n';
 
   convoy.forEach(function(c, i) {
