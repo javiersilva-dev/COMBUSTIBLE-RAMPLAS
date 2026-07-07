@@ -191,7 +191,6 @@
   .reserva-banner .rb-km .rk-val { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1; }
   .reserva-banner .rb-km .rk-lbl { font-size: 10px; color: var(--muted); }
 
-  /* SELECTOR MARGEN */
   .margin-row { margin-bottom: 14px; }
   .margin-row label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; }
 
@@ -271,6 +270,30 @@
   .rs-item .rs-val { font-size: 14px; font-weight: 600; color: var(--text); }
   .rs-item .rs-val.orange { color: var(--orange); }
 
+  /* BOTÓN COMPARTIR */
+  .btn-compartir {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; margin-top: 12px;
+    background: #25d366; border: none;
+    border-radius: var(--radius-sm); color: white;
+    font-size: 14px; font-weight: 700; padding: 13px;
+    cursor: pointer; -webkit-appearance: none;
+    transition: opacity 0.15s;
+  }
+  .btn-compartir:active { opacity: 0.85; transform: scale(0.98); }
+  .btn-compartir.copied { background: var(--green); }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #1e293b; border: 1px solid rgba(34,197,94,0.4);
+    color: var(--green); font-size: 13px; font-weight: 600;
+    padding: 10px 20px; border-radius: 999px;
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none; white-space: nowrap; z-index: 100;
+  }
+  .toast.show { opacity: 1; }
+
   footer { text-align: center; font-size: 11px; color: var(--muted); padding: 24px 16px 8px; opacity: 0.5; }
 </style>
 </head>
@@ -346,7 +369,6 @@
         </div>
       </div>
 
-      <!-- SELECTOR DE MARGEN -->
       <div class="margin-row">
         <label>Margen de seguridad:</label>
         <div class="margin-options" id="marginOptions">
@@ -354,7 +376,7 @@
             <div class="mo-radio"><div class="mo-dot"></div></div>
             <div class="mo-text">
               <div class="mo-label">5% — mínimo</div>
-              <div class="mo-sub">Solo para trayectos cortos o cargas de emergencia</div>
+              <div class="mo-sub">Solo para trayectos cortos o emergencia</div>
             </div>
           </button>
           <button class="margin-opt selected" data-val="10" onclick="setMargin(this)">
@@ -391,15 +413,12 @@
 
 </div>
 
+<div class="toast" id="toast">✓ Copiado — listo para pegar en WhatsApp</div>
+
 <footer>INCOM — Industria y Comercio Ltda.</footer>
 
 <script>
-/* ===================== DATOS =====================
-   Rendimientos actualizados:
-   DAF           → 2.8 km/L  (antes 2.9)
-   FREIGHTLINER  → 2.9 km/L  (antes 3.0) — Cascadia
-   MERCEDES-BENZ → 2.8 km/L  (antes 3.0)
-================================================== */
+/* ===================== DATOS ===================== */
 const FLEET = [
   {marca:'DAF',           patente:'RTRJ-40', cap:580, est1:580, est2:0,   rend:2.8},
   {marca:'DAF',           patente:'RVFF-14', cap:580, est1:580, est2:0,   rend:2.8},
@@ -423,7 +442,8 @@ let DESTS = [
 
 let selV      = null;
 let selD      = null;
-let margenVal = '10'; // '5' | '10' | '15' | 'reserva'
+let margenVal = '10';
+let lastCalc  = null; // guarda último cálculo para compartir
 
 /* ===================== MARGEN ===================== */
 function setMargin(btn) {
@@ -437,13 +457,6 @@ function setMargin(btn) {
     btn.classList.add('selected');
   }
   calcResult();
-}
-
-function getMargenPct(reserva) {
-  if (margenVal === 'reserva') {
-    return reserva; // litros fijos, no porcentaje
-  }
-  return null;
 }
 
 /* ===================== RENDER FLOTA ===================== */
@@ -490,7 +503,6 @@ function renderDests() {
   });
 }
 
-/* ===================== AGREGAR DESTINO ===================== */
 function addDest() {
   const n  = document.getElementById('dname').value.trim();
   const km = parseInt(document.getElementById('dkm').value);
@@ -501,14 +513,12 @@ function addDest() {
   renderDests();
 }
 
-/* ===================== PANEL ===================== */
 function checkPanel() {
   const show = selV !== null && selD !== null;
   document.getElementById('panelCombustible').style.display = show ? 'block' : 'none';
   if (show) calcResult();
 }
 
-/* ===================== SLIDER ===================== */
 function onSlider(v) {
   document.getElementById('pctBig').textContent = v + '%';
   calcResult();
@@ -528,18 +538,13 @@ function calcResult() {
 
   const litMedibles = Math.round((pct / 100) * capMedible);
   const litTotal    = litMedibles + reserva;
+  const litViaje    = Math.round(d.km / v.rend);
 
-  const litViaje = Math.round(d.km / v.rend);
-
-  // Cálculo del mínimo requerido según opción de margen
-  let litRequerido;
-  let margenDesc;
+  let litRequerido, margenDesc;
 
   if (margenVal === 'reserva') {
-    // Llegar con la reserva intacta = consumo puro + reserva completa
     litRequerido = litViaje + reserva;
     margenDesc   = 'reserva intacta al llegar (' + reserva + ' L)';
-    // Actualizar subtítulo dinámico
     document.getElementById('moSubReserva').textContent =
       'Llegar con ' + reserva + ' L · luz de reserva enciende al arribar · +' + kmReserva + ' km disponibles';
   } else {
@@ -548,19 +553,37 @@ function calcResult() {
     margenDesc   = 'margen ' + margenVal + '%';
   }
 
-  const litCargar = Math.max(0, litRequerido - litTotal);
-
+  const litCargar       = Math.max(0, litRequerido - litTotal);
   const usaReserva      = litTotal >= litRequerido && litMedibles < litRequerido;
   const litReservaUsada = usaReserva ? Math.max(0, litRequerido - litMedibles) : 0;
   const kmEnReserva     = Math.round(litReservaUsada * v.rend);
 
-  // Actualizar balance
+  // Km posibles con el combustible que tendrá al salir
+  const litAlSalir  = litTotal + litCargar;
+  const kmPosibles  = Math.round(litAlSalir * v.rend);
+
+  // Litros con que llega a destino
+  const litAlLlegar = litAlSalir - litViaje;
+
+  // Guardar para compartir
+  lastCalc = {
+    patente: v.patente, marca: v.marca,
+    destino: d.name, km: d.km,
+    pct: pct,
+    litMedibles: litMedibles, reserva: reserva, litTotal: litTotal,
+    litCargar: litCargar, litAlSalir: litAlSalir, kmPosibles: kmPosibles,
+    litViaje: litViaje, litRequerido: litRequerido, litAlLlegar: litAlLlegar,
+    kmReserva: kmReserva, usaReserva: usaReserva,
+    litReservaUsada: litReservaUsada, kmEnReserva: kmEnReserva,
+    margenVal: margenVal, margenDesc: margenDesc, rend: v.rend
+  };
+
+  // Actualizar UI
   document.getElementById('bMedibles').textContent = litMedibles + ' L';
   document.getElementById('bReserva').textContent  = reserva + ' L';
   document.getElementById('bTotal').textContent    = litTotal + ' L';
   document.getElementById('rbKm').textContent      = kmReserva + ' km';
 
-  // Detalle tanques
   const td = document.getElementById('tankDetail');
   if (v.est1 > 0 && v.est2 > 0) {
     td.style.display = 'block';
@@ -573,7 +596,6 @@ function calcResult() {
     td.innerHTML = 'Capacidad total: <strong>' + v.cap + ' L</strong> (distribución no especificada)';
   }
 
-  // Resultado
   const rb = document.getElementById('resultBox');
   let cls, badgeCls, badgeTxt, msg;
 
@@ -620,8 +642,91 @@ function calcResult() {
         '<div class="rs-item"><div class="rs-lbl">Consumo estimado</div><div class="rs-val">' + litViaje + ' L</div></div>' +
         '<div class="rs-item"><div class="rs-lbl">Total en estanque</div><div class="rs-val">' + litTotal + ' L (' + pct + '%+res.)</div></div>' +
         '<div class="rs-item"><div class="rs-lbl">Mínimo requerido</div><div class="rs-val">' + litRequerido + ' L</div></div>' +
+        '<div class="rs-item"><div class="rs-lbl">Sale con</div><div class="rs-val">' + litAlSalir + ' L</div></div>' +
+        '<div class="rs-item"><div class="rs-lbl">Km posibles</div><div class="rs-val">' + kmPosibles + ' km</div></div>' +
       '</div>' +
+      '<button class="btn-compartir" onclick="compartir()">📲 Compartir resumen por WhatsApp</button>' +
     '</div>';
+}
+
+/* ===================== COMPARTIR ===================== */
+function compartir() {
+  if (!lastCalc) return;
+  const c = lastCalc;
+
+  const fecha = new Date().toLocaleDateString('es-CL', {day:'2-digit', month:'2-digit', year:'numeric'});
+  const hora  = new Date().toLocaleTimeString('es-CL', {hour:'2-digit', minute:'2-digit'});
+
+  let margenLinea = '';
+  if (c.margenVal === 'reserva') {
+    margenLinea = '   Margen:         Reserva intacta al llegar';
+  } else {
+    margenLinea = '   Margen:         ' + c.margenVal + '%';
+  }
+
+  let reservaLinea = '';
+  if (c.usaReserva) {
+    reservaLinea = '\n⚠ ATENCIÓN: Este viaje usa ' + c.litReservaUsada + ' L de reserva técnica.\n   Circulará ~' + c.kmEnReserva + ' km con luz de advertencia encendida.';
+  } else if (c.margenVal === 'reserva') {
+    reservaLinea = '\n✅ Llegará con reserva intacta (' + c.reserva + ' L).\n   La luz de reserva encenderá al arribar al destino.';
+  }
+
+  const texto =
+'🚛 *INCOM — Control de Combustible*\n' +
+'📅 ' + fecha + ' · ' + hora + '\n' +
+'━━━━━━━━━━━━━━━━━━━━━━\n' +
+'⛽ *CARGA REQUERIDA: ' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '*\n' +
+'━━━━━━━━━━━━━━━━━━━━━━\n' +
+'\n' +
+'🚚 *Equipo:* ' + c.patente + ' (' + c.marca + ')\n' +
+'📍 *Destino:* ' + c.destino + ' (' + c.km + ' km)\n' +
+'\n' +
+'📊 *Estado actual del estanque:*\n' +
+'   CAN marca (' + c.pct + '%):  ' + c.litMedibles + ' L\n' +
+'   Reserva técnica:  + ' + c.reserva + ' L\n' +
+'   ─────────────────────\n' +
+'   Total físico:       ' + c.litTotal + ' L\n' +
+'\n' +
+'⛽ *Al salir (tras carga):*\n' +
+'   Combustible total:  ' + c.litAlSalir + ' L\n' +
+'   Km posibles:        ' + c.kmPosibles + ' km\n' +
+'\n' +
+'🛣️ *El viaje:*\n' +
+'   Distancia:          ' + c.km + ' km\n' +
+'   Consumo estimado:   ' + c.litViaje + ' L (' + c.rend + ' km/L)\n' +
+'   Mínimo requerido:   ' + c.litRequerido + ' L\n' +
+margenLinea + '\n' +
+reservaLinea + '\n' +
+'\n' +
+'━━━━━━━━━━━━━━━━━━━━━━\n' +
+'_INCOM Ramplas — Control Combustible v2_';
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(function() {
+      mostrarToast();
+    }).catch(function() {
+      fallbackCopy(texto);
+    });
+  } else {
+    fallbackCopy(texto);
+  }
+}
+
+function fallbackCopy(texto) {
+  const ta = document.createElement('textarea');
+  ta.value = texto;
+  ta.style.position = 'fixed';
+  ta.style.opacity  = '0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); mostrarToast(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function mostrarToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
 }
 
 renderFleet();
