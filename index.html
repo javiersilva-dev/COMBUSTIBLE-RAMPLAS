@@ -560,18 +560,10 @@ function generarTextoUno(c) {
     '⛽ *CARGAR: ' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '*\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n\n' +
     '📍 Destino: ' + c.destino + ' (' + c.km + ' km)\n\n' +
-    '📊 Estanque actual:\n' +
-    '   CAN (' + c.pct + '%):    ' + c.litMedibles + ' L\n' +
-    '   Reserva:      + ' + c.reserva + ' L\n' +
-    '   Total físico:   ' + c.litTotal + ' L\n\n' +
-    '⛽ Al salir (tras carga):\n' +
-    '   Total:         ' + c.litAlSalir + ' L\n' +
-    '   Km posibles:   ' + c.kmPosibles + ' km\n\n' +
-    '🛣️ El viaje:\n' +
-    '   Distancia:     ' + c.km + ' km\n' +
-    '   Consumo estimado: ' + c.litViaje + ' L (' + c.rend + ' km/L)\n' +
-    '   Requerido:     ' + c.litRequerido + ' L\n' +
-    '   ' + c.margenDesc +
+    '   + CAN (' + c.pct + '%): ' + c.litMedibles + ' L + Reserva: ' + c.reserva + ' L\n' +
+    '   ──────────────────────────────\n' +
+    '   Total para el viaje: ' + c.litAlSalir + ' L → aprox. ' + c.kmPosibles + ' km\n\n' +
+    '   Consumo estimado: ' + c.litViaje + ' L · ' + c.margenDesc +
     lineaReserva(c) + '\n\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n' +
     '🙏 Buen viaje y recuerden respetar los límites de velocidad.\n' +
@@ -612,9 +604,10 @@ function generarTextoConvoy() {
     texto +=
       '[' + (i+1) + '/' + convoy.length + '] 🚚 *' + c.patente + '* — ' + c.marca + '\n' +
       '⛽ *CARGAR: ' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '*\n' +
-      '   CAN (' + c.pct + '%): ' + c.litMedibles + ' L + reserva ' + c.reserva + ' L = ' + c.litTotal + ' L\n' +
-      '   Sale con ' + c.litAlSalir + ' L → ' + c.kmPosibles + ' km posibles\n' +
-      '   Consumo estimado ' + c.litViaje + ' L · ' + c.margenDesc +
+      '   + CAN (' + c.pct + '%): ' + c.litMedibles + ' L + Reserva: ' + c.reserva + ' L\n' +
+      '   ──────────────────────────────\n' +
+      '   Total para el viaje: ' + c.litAlSalir + ' L → aprox. ' + c.kmPosibles.toLocaleString('es-CL') + ' km\n' +
+      '   Consumo estimado: ' + c.litViaje + ' L · ' + c.margenDesc +
       lineaReserva(c) + '\n\n';
   });
 
