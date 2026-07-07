@@ -42,39 +42,21 @@
     background: var(--surface); border-bottom: 1px solid var(--border);
     padding: 14px 16px 12px; position: sticky; top: 0; z-index: 10;
   }
-
   .header-inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; gap: 10px; }
-
-  .logo-mark {
-    width: 32px; height: 32px; background: var(--accent); border-radius: 8px;
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
+  .logo-mark { width: 32px; height: 32px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .logo-mark svg { width: 18px; height: 18px; fill: white; }
   .header-text h1 { font-size: 15px; font-weight: 600; color: var(--text); }
   .header-text p  { font-size: 12px; color: var(--muted); }
 
   .container { max-width: 480px; margin: 0 auto; padding: 16px; }
 
-  .step-label {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
-    color: var(--muted); text-transform: uppercase; margin-bottom: 8px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .step-label .num {
-    width: 20px; height: 20px; background: var(--accent); border-radius: 50%;
-    display: inline-flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: white; flex-shrink: 0;
-  }
+  .step-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .step-label .num { width: 20px; height: 20px; background: var(--accent); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: white; flex-shrink: 0; }
 
   .section { margin-bottom: 20px; }
   .fleet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 
-  .fleet-btn {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 12px; text-align: left;
-    cursor: pointer; transition: border-color 0.15s, background 0.15s;
-    -webkit-appearance: none; width: 100%;
-  }
+  .fleet-btn { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; text-align: left; cursor: pointer; transition: border-color 0.15s, background 0.15s; -webkit-appearance: none; width: 100%; }
   .fleet-btn:active { transform: scale(0.97); }
   .fleet-btn.selected { border-color: var(--accent); background: var(--accent-bg); }
   .fleet-btn.en-convoy { border-color: var(--green); background: rgba(34,197,94,0.08); }
@@ -85,53 +67,30 @@
   .fleet-btn .fb-convoy { font-size: 10px; color: var(--green); margin-top: 2px; font-weight: 600; }
 
   .dest-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .dest-chip {
-    display: flex; align-items: center; gap: 6px; padding: 8px 14px;
-    border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
-    cursor: pointer; font-size: 13px; color: var(--muted); transition: all 0.15s; -webkit-appearance: none;
-  }
+  .dest-chip { display: flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; font-size: 13px; color: var(--muted); transition: all 0.15s; -webkit-appearance: none; }
   .dest-chip:active { transform: scale(0.96); }
   .dest-chip.active { border-color: var(--accent); background: var(--accent-bg); color: var(--text); font-weight: 500; }
   .dest-chip .chip-km { font-size: 11px; opacity: 0.65; }
   .dest-chip .chip-del { font-size: 14px; opacity: 0.5; margin-left: 2px; line-height: 1; }
 
   .add-dest-form { display: flex; gap: 8px; flex-wrap: wrap; }
-  .add-dest-form input {
-    background: var(--surface); border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); padding: 9px 12px;
-    font-size: 13px; color: var(--text); -webkit-appearance: none; outline: none;
-  }
+  .add-dest-form input { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 9px 12px; font-size: 13px; color: var(--text); -webkit-appearance: none; outline: none; }
   .add-dest-form input:focus { border-color: var(--accent); }
   .add-dest-form input[name=dname] { flex: 2; min-width: 140px; }
   .add-dest-form input[name=dkm]   { flex: 1; min-width: 80px; }
-
-  .btn-add {
-    background: var(--accent-bg); border: 1px solid var(--accent);
-    border-radius: var(--radius-sm); color: var(--accent);
-    font-size: 13px; font-weight: 600; padding: 9px 14px;
-    cursor: pointer; -webkit-appearance: none; white-space: nowrap;
-  }
+  .btn-add { background: var(--accent-bg); border: 1px solid var(--accent); border-radius: var(--radius-sm); color: var(--accent); font-size: 13px; font-weight: 600; padding: 9px 14px; cursor: pointer; -webkit-appearance: none; white-space: nowrap; }
   .btn-add:active { transform: scale(0.96); }
 
   #panelCombustible { display: none; }
 
-  .fuel-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px; margin-bottom: 16px;
-  }
+  .fuel-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 16px; }
 
   .slider-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
   .slider-header .sh-label { font-size: 13px; color: var(--muted); }
   .slider-header .sh-pct   { font-size: 28px; font-weight: 700; color: var(--text); }
 
-  input[type=range] {
-    width: 100%; height: 6px; -webkit-appearance: none;
-    background: var(--surface2); border-radius: 3px; outline: none; cursor: pointer; margin-bottom: 16px;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
-    background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--accent); cursor: pointer;
-  }
+  input[type=range] { width: 100%; height: 6px; -webkit-appearance: none; background: var(--surface2); border-radius: 3px; outline: none; cursor: pointer; margin-bottom: 16px; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 1px var(--accent); cursor: pointer; }
 
   .fuel-balance { background: var(--surface2); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 14px; }
   .fb-title { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; }
@@ -148,11 +107,7 @@
   .fb-row .fb-val.accent { color: var(--accent); }
   .fb-row .fb-val.big    { font-size: 20px; }
 
-  .reserva-banner {
-    background: var(--orange-bg); border: 1px solid rgba(249,115,22,0.25);
-    border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px;
-    display: flex; align-items: center; gap: 12px;
-  }
+  .reserva-banner { background: var(--orange-bg); border: 1px solid rgba(249,115,22,0.25); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
   .reserva-banner .rb-icon { font-size: 20px; flex-shrink: 0; }
   .reserva-banner .rb-info { flex: 1; }
   .reserva-banner .rb-info .ri-title { font-size: 11px; font-weight: 600; color: var(--orange); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
@@ -164,21 +119,11 @@
   .margin-row { margin-bottom: 14px; }
   .margin-row label { font-size: 13px; color: var(--muted); display: block; margin-bottom: 8px; }
   .margin-options { display: flex; flex-direction: column; gap: 6px; }
-
-  .margin-opt {
-    display: flex; align-items: center; gap: 10px;
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 12px;
-    cursor: pointer; transition: border-color 0.15s, background 0.15s;
-    -webkit-appearance: none; width: 100%; text-align: left;
-  }
+  .margin-opt { display: flex; align-items: center; gap: 10px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 12px; cursor: pointer; transition: border-color 0.15s, background 0.15s; -webkit-appearance: none; width: 100%; text-align: left; }
   .margin-opt:active { transform: scale(0.99); }
   .margin-opt.selected { border-color: var(--accent); background: var(--accent-bg); }
   .margin-opt.selected-orange { border-color: var(--orange); background: var(--orange-bg); }
-  .margin-opt .mo-radio {
-    width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border2);
-    flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  }
+  .margin-opt .mo-radio { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--border2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .margin-opt.selected .mo-radio { border-color: var(--accent); background: var(--accent); }
   .margin-opt.selected-orange .mo-radio { border-color: var(--orange); background: var(--orange); }
   .mo-radio .mo-dot { width: 6px; height: 6px; border-radius: 50%; background: white; display: none; }
@@ -192,10 +137,7 @@
   .badge-blue   { background: var(--accent-bg); color: var(--accent); }
   .badge-orange { background: var(--orange-bg); color: var(--orange); }
 
-  .tank-detail {
-    background: var(--surface2); border-radius: var(--radius-sm);
-    padding: 10px 12px; font-size: 12px; color: var(--muted); margin-top: 10px;
-  }
+  .tank-detail { background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 12px; font-size: 12px; color: var(--muted); margin-top: 10px; }
   .tank-detail strong { color: var(--text); }
 
   .result { border-radius: var(--radius); padding: 16px; border-left: 4px solid transparent; }
@@ -206,120 +148,51 @@
   .result-litros { font-size: 40px; font-weight: 800; color: var(--text); line-height: 1; }
   .result-litros span { font-size: 16px; font-weight: 400; color: var(--muted); }
 
-  .result-badge {
-    display: inline-block; font-size: 12px; font-weight: 600;
-    padding: 4px 12px; border-radius: 999px; margin-bottom: 12px;
-  }
+  .result-badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; }
   .badge-green { background: rgba(34,197,94,0.15);  color: var(--green); }
   .badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); }
   .badge-red   { background: rgba(239,68,68,0.15);  color: var(--red); }
 
-  .reserva-alerta {
-    background: rgba(249,115,22,0.10); border: 1px solid rgba(249,115,22,0.25);
-    border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 14px;
-    display: flex; align-items: flex-start; gap: 8px; font-size: 12px;
-  }
+  .reserva-alerta { background: rgba(249,115,22,0.10); border: 1px solid rgba(249,115,22,0.25); border-radius: var(--radius-sm); padding: 10px 12px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 8px; font-size: 12px; }
   .reserva-alerta .ra-icon { font-size: 16px; flex-shrink: 0; }
   .reserva-alerta strong { display: block; color: var(--orange); font-size: 13px; margin-bottom: 2px; }
   .reserva-alerta span   { color: var(--muted); }
 
-  .result-summary {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;
-  }
+  .result-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
   .rs-item .rs-lbl { font-size: 10px; color: var(--muted); margin-bottom: 1px; }
   .rs-item .rs-val { font-size: 14px; font-weight: 600; color: var(--text); }
 
-  /* BOTONES ACCIÓN */
   .btn-row { display: flex; gap: 8px; margin-top: 12px; }
-
-  .btn-agregar {
-    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-    background: var(--green-bg); border: 1px solid var(--green);
-    border-radius: var(--radius-sm); color: var(--green);
-    font-size: 13px; font-weight: 700; padding: 12px;
-    cursor: pointer; -webkit-appearance: none;
-  }
+  .btn-agregar { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--green-bg); border: 1px solid var(--green); border-radius: var(--radius-sm); color: var(--green); font-size: 13px; font-weight: 700; padding: 12px; cursor: pointer; -webkit-appearance: none; }
   .btn-agregar:active { transform: scale(0.98); opacity: 0.85; }
   .btn-agregar.ya-agregado { background: rgba(34,197,94,0.05); border-color: rgba(34,197,94,0.3); color: rgba(34,197,94,0.5); cursor: default; }
-
-  .btn-compartir-uno {
-    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
-    background: var(--surface2); border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); color: var(--muted);
-    font-size: 13px; font-weight: 600; padding: 12px;
-    cursor: pointer; -webkit-appearance: none;
-  }
+  .btn-compartir-uno { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-sm); color: var(--muted); font-size: 13px; font-weight: 600; padding: 12px; cursor: pointer; -webkit-appearance: none; }
   .btn-compartir-uno:active { transform: scale(0.98); }
 
-  /* PANEL CONVOY */
+  /* CONVOY PANEL */
   #convoyPanel { display: none; margin-bottom: 20px; }
-
-  .convoy-card {
-    background: var(--surface); border: 1px solid var(--green);
-    border-radius: var(--radius); padding: 14px; margin-bottom: 12px;
-  }
-
-  .convoy-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
-  }
+  .convoy-card { background: var(--surface); border: 1px solid var(--green); border-radius: var(--radius); padding: 14px; margin-bottom: 12px; }
+  .convoy-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
   .convoy-header .ch-title { font-size: 13px; font-weight: 700; color: var(--green); }
-  .convoy-header .ch-count {
-    font-size: 11px; color: var(--muted); background: var(--surface2);
-    padding: 3px 10px; border-radius: 999px;
-  }
-
+  .convoy-header .ch-count { font-size: 11px; color: var(--muted); background: var(--surface2); padding: 3px 10px; border-radius: 999px; }
   .convoy-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
-
-  .convoy-item {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 12px;
-  }
+  .convoy-item { display: flex; align-items: center; justify-content: space-between; background: var(--surface2); border-radius: var(--radius-sm); padding: 10px 12px; }
   .convoy-item .ci-left { flex: 1; }
   .convoy-item .ci-patente { font-size: 14px; font-weight: 700; color: var(--text); }
   .convoy-item .ci-detalle { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .convoy-item .ci-carga { font-size: 16px; font-weight: 800; color: var(--green); text-align: right; }
   .convoy-item .ci-carga span { font-size: 11px; font-weight: 400; color: var(--muted); display: block; }
-  .convoy-item .ci-del {
-    font-size: 16px; color: var(--muted); cursor: pointer; padding: 0 0 0 10px;
-    -webkit-appearance: none; background: none; border: none; opacity: 0.5;
-  }
+  .convoy-item .ci-del { font-size: 16px; color: var(--muted); cursor: pointer; padding: 0 0 0 10px; -webkit-appearance: none; background: none; border: none; opacity: 0.5; }
   .convoy-item .ci-del:hover { opacity: 1; color: var(--red); }
-
-  .convoy-total {
-    display: flex; align-items: center; justify-content: space-between;
-    border-top: 1px solid var(--border); padding-top: 10px; margin-bottom: 12px;
-  }
+  .convoy-total { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 10px; margin-bottom: 12px; }
   .convoy-total .ct-lbl { font-size: 12px; color: var(--muted); }
   .convoy-total .ct-val { font-size: 20px; font-weight: 800; color: var(--green); }
-
-  .btn-convoy-enviar {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    width: 100%; background: #25d366; border: none;
-    border-radius: var(--radius-sm); color: white;
-    font-size: 14px; font-weight: 700; padding: 14px;
-    cursor: pointer; -webkit-appearance: none;
-  }
+  .btn-convoy-enviar { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; background: #25d366; border: none; border-radius: var(--radius-sm); color: white; font-size: 14px; font-weight: 700; padding: 14px; cursor: pointer; -webkit-appearance: none; }
   .btn-convoy-enviar:active { opacity: 0.85; transform: scale(0.98); }
-
-  .btn-convoy-limpiar {
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    width: 100%; margin-top: 8px;
-    background: none; border: 1px solid var(--border2);
-    border-radius: var(--radius-sm); color: var(--muted);
-    font-size: 12px; padding: 9px; cursor: pointer; -webkit-appearance: none;
-  }
+  .btn-convoy-limpiar { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; margin-top: 8px; background: none; border: 1px solid var(--border2); border-radius: var(--radius-sm); color: var(--muted); font-size: 12px; padding: 9px; cursor: pointer; -webkit-appearance: none; }
   .btn-convoy-limpiar:active { opacity: 0.7; }
 
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
-    background: #1e293b; border: 1px solid rgba(34,197,94,0.4);
-    color: var(--green); font-size: 13px; font-weight: 600;
-    padding: 10px 20px; border-radius: 999px;
-    opacity: 0; transition: opacity 0.3s;
-    pointer-events: none; white-space: nowrap; z-index: 100;
-  }
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid rgba(34,197,94,0.4); color: var(--green); font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 999px; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; z-index: 100; }
   .toast.show { opacity: 1; }
 
   footer { text-align: center; font-size: 11px; color: var(--muted); padding: 24px 16px 8px; opacity: 0.5; }
@@ -343,7 +216,6 @@
 
 <div class="container">
 
-  <!-- CONVOY PANEL -->
   <div id="convoyPanel">
     <div class="convoy-card">
       <div class="convoy-header">
@@ -360,13 +232,11 @@
     </div>
   </div>
 
-  <!-- PASO 1 -->
   <div class="section">
     <div class="step-label"><span class="num">1</span> Seleccionar equipo</div>
     <div class="fleet-grid" id="fleetGrid"></div>
   </div>
 
-  <!-- PASO 2 -->
   <div class="section">
     <div class="step-label"><span class="num">2</span> Destino del viaje</div>
     <div class="dest-chips" id="destChips"></div>
@@ -377,17 +247,14 @@
     </div>
   </div>
 
-  <!-- PASO 3 -->
   <div id="panelCombustible">
     <div class="step-label"><span class="num">3</span> Combustible actual</div>
-
     <div class="fuel-card">
       <div class="slider-header">
         <span class="sh-label">Nivel en estanque (GPS/CAN)</span>
         <span class="sh-pct" id="pctBig">50%</span>
       </div>
-      <input type="range" id="fuelRange" min="0" max="100" value="50" step="1"
-             oninput="onSlider(this.value)" />
+      <input type="range" id="fuelRange" min="0" max="100" value="50" step="1" oninput="onSlider(this.value)" />
 
       <div class="fuel-balance">
         <div class="fb-title">Balance de combustible</div>
@@ -419,35 +286,23 @@
 
       <div class="margin-row">
         <label>Margen de seguridad:</label>
-        <div class="margin-options" id="marginOptions">
+        <div class="margin-options">
           <button class="margin-opt" data-val="5" onclick="setMargin(this)">
             <div class="mo-radio"><div class="mo-dot"></div></div>
-            <div class="mo-text">
-              <div class="mo-label">5% — mínimo</div>
-              <div class="mo-sub">Solo para trayectos cortos o emergencia</div>
-            </div>
+            <div class="mo-text"><div class="mo-label">5% — mínimo</div><div class="mo-sub">Solo para trayectos cortos o emergencia</div></div>
           </button>
           <button class="margin-opt selected" data-val="10" onclick="setMargin(this)">
             <div class="mo-radio"><div class="mo-dot"></div></div>
-            <div class="mo-text">
-              <div class="mo-label">10% — recomendado</div>
-              <div class="mo-sub">Margen estándar para operación normal</div>
-            </div>
+            <div class="mo-text"><div class="mo-label">10% — recomendado</div><div class="mo-sub">Margen estándar para operación normal</div></div>
             <span class="mo-badge badge-blue">Estándar</span>
           </button>
           <button class="margin-opt" data-val="15" onclick="setMargin(this)">
             <div class="mo-radio"><div class="mo-dot"></div></div>
-            <div class="mo-text">
-              <div class="mo-label">15% — precaución</div>
-              <div class="mo-sub">Rutas con condiciones adversas o tráfico</div>
-            </div>
+            <div class="mo-text"><div class="mo-label">15% — precaución</div><div class="mo-sub">Rutas con condiciones adversas o tráfico</div></div>
           </button>
           <button class="margin-opt" data-val="reserva" onclick="setMargin(this)">
             <div class="mo-radio"><div class="mo-dot"></div></div>
-            <div class="mo-text">
-              <div class="mo-label">Reserva intacta al llegar</div>
-              <div class="mo-sub" id="moSubReserva">La luz de reserva enciende al llegar a destino</div>
-            </div>
+            <div class="mo-text"><div class="mo-label">Reserva intacta al llegar</div><div class="mo-sub" id="moSubReserva">La luz de reserva enciende al llegar a destino</div></div>
             <span class="mo-badge badge-orange">⛽ Óptimo</span>
           </button>
         </div>
@@ -455,7 +310,6 @@
 
       <div id="tankDetail" class="tank-detail" style="display:none;"></div>
     </div>
-
     <div id="resultBox"></div>
   </div>
 
@@ -486,13 +340,8 @@ let DESTS = [
   {name:'Puerto Padrones',   km:1050},
 ];
 
-let selV      = null;
-let selD      = null;
-let margenVal = '10';
-let lastCalc  = null;
-let convoy    = []; // lista de equipos agregados
+let selV = null, selD = null, margenVal = '10', lastCalc = null, convoy = [];
 
-/* ─── MARGEN ─── */
 function setMargin(btn) {
   document.querySelectorAll('.margin-opt').forEach(function(b) { b.classList.remove('selected','selected-orange'); });
   margenVal = btn.dataset.val;
@@ -500,7 +349,6 @@ function setMargin(btn) {
   calcResult();
 }
 
-/* ─── FLOTA ─── */
 function renderFleet() {
   const g = document.getElementById('fleetGrid');
   g.innerHTML = '';
@@ -520,7 +368,6 @@ function renderFleet() {
   });
 }
 
-/* ─── DESTINOS ─── */
 function renderDests() {
   const c = document.getElementById('destChips');
   c.innerHTML = '';
@@ -531,12 +378,7 @@ function renderDests() {
       (DESTS.length > 1 ? ' <span class="chip-del" data-i="' + i + '">✕</span>' : '');
     chip.onclick = function(e) {
       const del = e.target.closest('[data-i]');
-      if (del) {
-        const idx = parseInt(del.dataset.i);
-        DESTS.splice(idx, 1);
-        if (selD >= DESTS.length) selD = null;
-        renderDests(); checkPanel(); return;
-      }
+      if (del) { const idx = parseInt(del.dataset.i); DESTS.splice(idx, 1); if (selD >= DESTS.length) selD = null; renderDests(); checkPanel(); return; }
       selD = i; renderDests(); checkPanel();
     };
     c.appendChild(chip);
@@ -549,7 +391,7 @@ function addDest() {
   if (!n || !km || km < 1) return;
   DESTS.push({name: n, km: km});
   document.getElementById('dname').value = '';
-  document.getElementById('dkm').value   = '';
+  document.getElementById('dkm').value = '';
   renderDests();
 }
 
@@ -559,20 +401,13 @@ function checkPanel() {
   if (show) calcResult();
 }
 
-function onSlider(v) {
-  document.getElementById('pctBig').textContent = v + '%';
-  calcResult();
-}
+function onSlider(v) { document.getElementById('pctBig').textContent = v + '%'; calcResult(); }
 
-/* ─── CÁLCULO ─── */
 function calcResult() {
   if (selV === null || selD === null) return;
-
-  const v   = FLEET[selV];
-  const d   = DESTS[selD];
+  const v = FLEET[selV], d = DESTS[selD];
   const pct = parseInt(document.getElementById('fuelRange').value);
-
-  const reserva    = Math.round(v.cap * 0.10);
+  const reserva = Math.round(v.cap * 0.10);
   const capMedible = v.cap - reserva;
   const kmReserva  = Math.round(reserva * v.rend);
   const litMedibles = Math.round((pct / 100) * capMedible);
@@ -583,11 +418,9 @@ function calcResult() {
   if (margenVal === 'reserva') {
     litRequerido = litViaje + reserva;
     margenDesc   = 'Reserva intacta al llegar (' + reserva + ' L)';
-    document.getElementById('moSubReserva').textContent =
-      'Llegar con ' + reserva + ' L · luz de reserva enciende al arribar · +' + kmReserva + ' km';
+    document.getElementById('moSubReserva').textContent = 'Llegar con ' + reserva + ' L · luz de reserva enciende al arribar · +' + kmReserva + ' km';
   } else {
-    const mgn    = parseInt(margenVal) / 100;
-    litRequerido = Math.round(litViaje * (1 + mgn));
+    litRequerido = Math.round(litViaje * (1 + parseInt(margenVal) / 100));
     margenDesc   = 'Margen ' + margenVal + '%';
   }
 
@@ -598,14 +431,7 @@ function calcResult() {
   const litAlSalir      = litTotal + litCargar;
   const kmPosibles      = Math.round(litAlSalir * v.rend);
 
-  lastCalc = {
-    fleetIdx: selV, patente: v.patente, marca: v.marca,
-    destino: d.name, km: d.km, pct: pct, rend: v.rend,
-    litMedibles, reserva, litTotal, litCargar, litAlSalir,
-    kmPosibles, litViaje, litRequerido, kmReserva,
-    usaReserva, litReservaUsada, kmEnReserva,
-    margenVal, margenDesc
-  };
+  lastCalc = { fleetIdx: selV, patente: v.patente, marca: v.marca, destino: d.name, km: d.km, pct, rend: v.rend, litMedibles, reserva, litTotal, litCargar, litAlSalir, kmPosibles, litViaje, litRequerido, kmReserva, usaReserva, litReservaUsada, kmEnReserva, margenVal, margenDesc };
 
   document.getElementById('bMedibles').textContent = litMedibles + ' L';
   document.getElementById('bReserva').textContent  = reserva + ' L';
@@ -613,11 +439,10 @@ function calcResult() {
   document.getElementById('rbKm').textContent      = kmReserva + ' km';
 
   const td = document.getElementById('tankDetail');
+  td.style.display = 'block';
   if (v.est1 > 0 && v.est2 > 0) {
-    td.style.display = 'block';
     td.innerHTML = 'Estanque 1: <strong>' + v.est1 + ' L</strong> · Estanque 2: <strong>' + v.est2 + ' L</strong> · Total: <strong>' + v.cap + ' L</strong>';
   } else {
-    td.style.display = 'block';
     td.innerHTML = 'Capacidad total: <strong>' + v.cap + ' L</strong>';
   }
 
@@ -626,9 +451,7 @@ function calcResult() {
 
   if (litCargar === 0 && !usaReserva) {
     cls = 'green'; badgeCls = 'badge-green'; badgeTxt = '✓ Listo para salir';
-    msg = margenVal === 'reserva'
-      ? 'Llegará a destino con la reserva intacta. La luz de reserva encenderá al arribar.'
-      : 'Combustible suficiente con margen de seguridad.';
+    msg = margenVal === 'reserva' ? 'Llegará a destino con la reserva intacta. La luz de reserva encenderá al arribar.' : 'Combustible suficiente con margen de seguridad.';
   } else if (litCargar === 0 && usaReserva) {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⚠ Sale usando reserva';
     msg = 'Alcanza el destino usando ' + litReservaUsada + ' L de reserva. Luz encendida por ~' + kmEnReserva + ' km.';
@@ -636,8 +459,7 @@ function calcResult() {
     cls = 'amber'; badgeCls = 'badge-amber'; badgeTxt = '⛽ Carga necesaria';
     msg = 'Faltan ' + litCargar + ' L para completar el viaje. ' + margenDesc + '.';
   } else {
-    cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Sin combustible';
-    msg = 'Carga obligatoria antes de salir.';
+    cls = 'red'; badgeCls = 'badge-red'; badgeTxt = '⚠ Sin combustible'; msg = 'Carga obligatoria antes de salir.';
   }
 
   const alertaReserva = usaReserva
@@ -663,9 +485,7 @@ function calcResult() {
         '<div class="rs-item"><div class="rs-lbl">Km posibles</div><div class="rs-val">' + kmPosibles + ' km</div></div>' +
       '</div>' +
       '<div class="btn-row">' +
-        '<button class="btn-agregar' + (yaEnConvoy ? ' ya-agregado' : '') + '" onclick="agregarAlConvoy()">' +
-          (yaEnConvoy ? '✓ Ya en convoy' : '➕ Agregar al convoy') +
-        '</button>' +
+        '<button class="btn-agregar' + (yaEnConvoy ? ' ya-agregado' : '') + '" onclick="agregarAlConvoy()">' + (yaEnConvoy ? '✓ Ya en convoy' : '➕ Agregar al convoy') + '</button>' +
         '<button class="btn-compartir-uno" onclick="compartirUno()">📤 Solo este</button>' +
       '</div>' +
     '</div>';
@@ -674,25 +494,20 @@ function calcResult() {
 /* ─── CONVOY ─── */
 function agregarAlConvoy() {
   if (!lastCalc) return;
-  const existe = convoy.some(function(c) { return c.fleetIdx === lastCalc.fleetIdx; });
-  if (existe) return;
+  if (convoy.some(function(c) { return c.fleetIdx === lastCalc.fleetIdx; })) return;
   convoy.push(Object.assign({}, lastCalc));
-  renderConvoy();
-  renderFleet();
-  calcResult(); // actualiza botón
+  renderConvoy(); renderFleet(); calcResult();
 }
 
 function quitarDelConvoy(idx) {
   convoy.splice(idx, 1);
-  renderConvoy();
-  renderFleet();
+  renderConvoy(); renderFleet();
   if (lastCalc) calcResult();
 }
 
 function limpiarConvoy() {
   convoy = [];
-  renderConvoy();
-  renderFleet();
+  renderConvoy(); renderFleet();
   if (lastCalc) calcResult();
 }
 
@@ -700,12 +515,8 @@ function renderConvoy() {
   const panel = document.getElementById('convoyPanel');
   if (convoy.length === 0) { panel.style.display = 'none'; return; }
   panel.style.display = 'block';
-
   document.getElementById('convoyCount').textContent = convoy.length + ' equipo' + (convoy.length > 1 ? 's' : '');
-
-  const totalCargar = convoy.reduce(function(s, c) { return s + c.litCargar; }, 0);
-  document.getElementById('convoyTotal').textContent = totalCargar + ' L';
-
+  document.getElementById('convoyTotal').textContent = convoy.reduce(function(s, c) { return s + c.litCargar; }, 0) + ' L';
   const lista = document.getElementById('convoyList');
   lista.innerHTML = '';
   convoy.forEach(function(c, i) {
@@ -722,38 +533,36 @@ function renderConvoy() {
   });
 }
 
-/* ─── GENERAR TEXTO ─── */
+/* ─── TEXTOS WHATSAPP ─── */
+function lineaReserva(c) {
+  if (c.usaReserva) return '\n   ⚠ Usa ' + c.litReservaUsada + ' L reserva · ~' + c.kmEnReserva + ' km con luz encendida';
+  if (c.margenVal === 'reserva') return '\n   ✅ Llega con reserva intacta (' + c.reserva + ' L)\n   Luz de reserva enciende al arribar';
+  return '';
+}
+
 function generarTextoUno(c) {
   const fecha = new Date().toLocaleDateString('es-CL', {day:'2-digit', month:'2-digit', year:'numeric'});
   const hora  = new Date().toLocaleTimeString('es-CL', {hour:'2-digit', minute:'2-digit'});
-
-  let reservaLinea = '';
-  if (c.usaReserva) {
-    reservaLinea = '\n⚠ Usa ' + c.litReservaUsada + ' L de reserva · ~' + c.kmEnReserva + ' km con luz encendida';
-  } else if (c.margenVal === 'reserva') {
-    reservaLinea = '\n✅ Llega con reserva intacta (' + c.reserva + ' L)\n   Luz de reserva enciende al arribar';
-  }
-
   return '🚛 *INCOM — Control de Combustible*\n' +
     '📅 ' + fecha + ' · ' + hora + '\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n' +
-    '⛽ *CARGA: ' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '*\n' +
+    '🚚 *' + c.patente + '* — ' + c.marca + '\n' +
+    '⛽ *CARGAR: ' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '*\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n\n' +
-    '🚚 *' + c.patente + '* (' + c.marca + ')\n' +
-    '📍 *Destino:* ' + c.destino + ' (' + c.km + ' km)\n\n' +
-    '📊 *Estanque actual:*\n' +
+    '📍 Destino: ' + c.destino + ' (' + c.km + ' km)\n\n' +
+    '📊 Estanque actual:\n' +
     '   CAN (' + c.pct + '%):    ' + c.litMedibles + ' L\n' +
     '   Reserva:      + ' + c.reserva + ' L\n' +
     '   Total físico:   ' + c.litTotal + ' L\n\n' +
-    '⛽ *Al salir (tras carga):*\n' +
+    '⛽ Al salir (tras carga):\n' +
     '   Total:         ' + c.litAlSalir + ' L\n' +
     '   Km posibles:   ' + c.kmPosibles + ' km\n\n' +
-    '🛣️ *El viaje:*\n' +
+    '🛣️ El viaje:\n' +
     '   Distancia:     ' + c.km + ' km\n' +
-    '   Consumo est.:  ' + c.litViaje + ' L (' + c.rend + ' km/L)\n' +
+    '   Consumo estimado: ' + c.litViaje + ' L (' + c.rend + ' km/L)\n' +
     '   Requerido:     ' + c.litRequerido + ' L\n' +
     '   ' + c.margenDesc +
-    reservaLinea + '\n\n' +
+    lineaReserva(c) + '\n\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n' +
     '_INCOM Ramplas — Control Combustible v2_';
 }
@@ -764,30 +573,26 @@ function generarTextoConvoy() {
   const totalCargar = convoy.reduce(function(s, c) { return s + c.litCargar; }, 0);
   const destinos    = [...new Set(convoy.map(function(c) { return c.destino; }))].join(' / ');
 
-  let texto = '🚛 *INCOM — Convoy Ramplas*\n' +
+  let texto =
+    '🚛 *INCOM — Convoy Ramplas*\n' +
     '📅 ' + fecha + ' · ' + hora + '\n' +
     '📍 ' + destinos + '\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n\n';
 
   convoy.forEach(function(c, i) {
-    let reservaLinea = '';
-    if (c.usaReserva) {
-      reservaLinea = '\n   ⚠ Usa ' + c.litReservaUsada + ' L reserva · ~' + c.kmEnReserva + ' km luz encendida';
-    } else if (c.margenVal === 'reserva') {
-      reservaLinea = '\n   ✅ Llega con reserva intacta (' + c.reserva + ' L)';
-    }
-
     texto +=
-      '[' + (i+1) + '/' + convoy.length + '] *' + c.patente + '* · ' + c.marca + '\n' +
-      '   CAN (' + c.pct + '%): ' + c.litMedibles + ' L + res. ' + c.reserva + ' L = *' + c.litTotal + ' L*\n' +
-      '   ⛽ Cargar: *' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '* → Sale con ' + c.litAlSalir + ' L (' + c.kmPosibles + ' km posibles)\n' +
-      '   ' + c.margenDesc +
-      reservaLinea + '\n\n';
+      '[' + (i+1) + '/' + convoy.length + '] 🚚 *' + c.patente + '* — ' + c.marca + '\n' +
+      '⛽ *CARGAR: ' + (c.litCargar > 0 ? c.litCargar + ' L' : 'Sin carga') + '*\n' +
+      '   CAN (' + c.pct + '%): ' + c.litMedibles + ' L + reserva ' + c.reserva + ' L = ' + c.litTotal + ' L\n' +
+      '   Sale con ' + c.litAlSalir + ' L → ' + c.kmPosibles + ' km posibles\n' +
+      '   Consumo estimado ' + c.litViaje + ' L · ' + c.margenDesc +
+      lineaReserva(c) + '\n\n';
   });
 
   texto +=
     '━━━━━━━━━━━━━━━━━━━━━━\n' +
     '⛽ *TOTAL A CARGAR: ' + totalCargar + ' L*\n' +
+    '   (' + convoy.map(function(c) { return c.patente + ' ' + c.litCargar + ' L'; }).join(' + ') + ')\n' +
     '━━━━━━━━━━━━━━━━━━━━━━\n' +
     '_INCOM Ramplas — Control Combustible v2_';
 
@@ -808,8 +613,8 @@ function fallbackCopy(texto) {
   document.body.removeChild(ta);
 }
 
-function compartirUno()    { if (lastCalc) copiar(generarTextoUno(lastCalc)); }
-function enviarConvoy()    { if (convoy.length > 0) copiar(generarTextoConvoy()); }
+function compartirUno() { if (lastCalc) copiar(generarTextoUno(lastCalc)); }
+function enviarConvoy() { if (convoy.length > 0) copiar(generarTextoConvoy()); }
 
 function mostrarToast() {
   const t = document.getElementById('toast');
